@@ -142,14 +142,33 @@ leesbaar resultaat of foutmelding in de console te zien.
 
 ---
 
-## Opdracht 3 - Bekijk verwachting komende 24 uur
+## Opdracht 3 - API Response DTO
+In Opdracht 2 heb je data opgehaald van een externe API. Die data kwam binnen als JSON.
+Je gaat deze JSON nu netjes omzetten naar C# objecten met behulp van een DTO (Data Transfer Object).
+
+#### Waarom doen we dit?
+Een API kan meer data teruggeven dan dat jij nodig hebt. We willen niet werken met losse JSON strings in onze code maar alleen velden modelleren die wij
+gebruiken. Zo kunnen we een duidelijke scheiding maken tussen API data (wat van buiten komt) en App data (wat wij tonen/gebruiken).
+Dit maakt je code leesbaarder, onderhoudbaar en geschikt om later te gaan cachen (Opdracht 7).
+
+- [ ] Opdracht 3 afgerond
+
+#### Handige links
+- https://medium.com/@20011002nimeth/understanding-data-transfer-objects-dtos-in-c-net-best-practices-examples-fe3e90238359
+
+#### Definitie van afgerond
+De response komt binnen en er wordt gebruik gemaakt van een DTO of zoiets.
+
+---
+
+## Opdracht 4 - Bekijk verwachting komende 24 uur
 Implementeer de tweede menu-optie: de gebruiker voert een stad in en ziet een verwachting voor de komende 24 uur. OpenWeatherMap forecast komt meestal
 in blokken van 3 uur. Toon daarom bijvoorbeeld de eerste 8 blokken (8 * 3 = 24 uur).
 
 Werk opnieuw via de lagen:
 Client -> Service -> Program.cs
 
-- [ ] Opdracht 3 afgerond
+- [ ] Opdracht 4 afgerond
 
 #### Voorbeeld
 ```bash
@@ -189,11 +208,11 @@ Optie 2 werkt end-to-end en een duidelijke 24-uurs weersverwachting toont op bas
 
 ---
 
-## Opdracht 4 - Celsius & Fahrenheit
+## Opdracht 5 - Celsius & Fahrenheit
 Breid optie 1 (en bij voorkeur ook optie 2) uit zodat de gebruiker kan kiezen of hij Celsius of Fahrenheit wil zien. Laat de gebruiker kiezen via een
 simpele input (bijv. `1 = Celsius`, `2 = Fahrenheit`). Deze keuze moet je vertalen naar de juiste query parameter.
 
-- [ ] Opdracht 4 afgerond
+- [ ] Opdracht 5 afgerond
 
 #### Voorbeeld
 ```bash
@@ -229,7 +248,7 @@ De gebruiker kan selecteren uit Celsius en Fahrenheit. Het resultaat wordt in de
 
 ---
 
-## Opdracht 5 - Weeradvies (Wat trek je aan?)
+## Opdracht 6 - Weeradvies (Wat trek je aan?)
 Implementeer de derde menu-optie: de gebruiker voert een stad in en krijgt een adviest bericht terug op basis van de API response. Denk aan eenvoudige
 regels zoals:
 - Koud -> "Brrr, trek een dikke jas aan"
@@ -239,7 +258,7 @@ regels zoals:
 Implementeer minstens de 3 hierboven genoemde regels. Voor extra punten mag je er altijd meer implementeren.
 Maak dit vooral leuk, maar wel gebaseerd op echte data (temperatuur, `weather.main`, description, wind)
 
-- [ ] Opdracht 5 afgerond
+- [ ] Opdracht 6 afgerond
 
 #### Voorbeeld
 ```bash
@@ -267,11 +286,11 @@ De gebruiker kan ten minste zien of het hard/zacht waait, warm/koud is en wel of
 
 ---
 
-## Opdracht 6 - Nettere foutmeldingen (API errors)
+## Opdracht 7 - Nettere foutmeldingen (API errors)
 Zorg dat je app duidelijke foutmeldingen geeft als de API een error terugstuurt. De app mag niet crashen met een stacktrace, maar moet iets tonen dat
 je als developer ook kunt debuggen.
 
-- [ ] Opdracht 6 afgerond
+- [ ] Opdracht 7 afgerond
 
 #### Voorbeeld
 ```bash
@@ -316,15 +335,23 @@ De applicatie mag niet crashen. Duidelijke leesbare foutmeldingen worden terugge
 
 ---
 
-## Opdracht 7 - Minimale in-memory cache
-Voeg een simpele in-memory cache toe, zodat herhaalde requests binnen bijvoorbeeld 5 minuten niet telkens opnieuw de API aanroepen.
+## Opdracht 8 - Minimale in-memory cache
+In Opdracht 3 heb je een API Response DTO gemaakt om JSON te kunnen deserializen. Voor caching gaan we niet dat object opslaan. We gaan een
+nieuw object gebruiken.
 
-Waarom doen we dit?
+Maak een Result DTO (bijv. `CurrentWeatherResult`) dat alleen de data bevatd die jij in de console toont, zoals bijvoorbeeld: City, Temperature,
+FeelsLike, Description, WindSpeed, etc.
+
+Dit object wordt gemaakt in de Service op basis van de API DTO die je eerder gemaakt hebt, het wordt gebruikt door Program.cs om te printen en wordt
+opgeslagen in de cache.
+Je cache bewaart dus niet de API response, maar het resultaat dat jouw app gebruikt.
+
+#### Waarom doen we dit?
 - Minder API calls (rate limit / quota)
 - Snellere response voor dezelfde vraag
 - Nettere UX (vooral tijdens testen)
 
-- [ ] Opdracht 7 afgerond
+- [ ] Opdracht 8 afgerond
 
 #### Hints
 - Cache key kan zijn: `current:{city}:{unit}` of `forecast:{city}:{unit}`
