@@ -26,6 +26,7 @@ services.AddHttpClient<OpenWeatherClient>(client =>
 // Registreer services hier
 services.AddSingleton<OpenWeatherClient>();
 services.AddSingleton<WeatherService>();
+// services.AddSingleton<SimpleMemoryCache>();
 
 using var provider = services.BuildServiceProvider();
 
