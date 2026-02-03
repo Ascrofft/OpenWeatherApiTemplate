@@ -8,24 +8,25 @@ Je oefent hiermee: GET-requests, query parameters, JSON models, foutafhandeling,
 - Je hebt basiskennis van HTTP GET en async/await.
 - Je kunt een C# console project aanmaken en runnen.
 
-Handige links mocht je de basiskennis mmissen:
-- `https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/console-webapiclient`
+Handige links mocht je de voorkennis missen:
+- `https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/console-webapiclient`.
 
 ## Setup
 
-### Create project
-```bash
-dotnet new console -n OpenWeatherCli
-cd OpenWeatherCli
-```
+Maak een OpenWeatherMap account aan: `https://home.openweathermap.org/users/sign_up`. Vergeet je e-mailadres niet te valideren. Er word automatisch
+een API sleutel aan je account toegewezen. Het kan even duren voordat deze ook echt actief is na uitgave.
 
-### Installeer packages
+Het is aan te raden om Postman te installeren (`https://www.postman.com/`). Postman is een tool waarmee je makkelijk en snel kan testen, ontwerpen, documenteren en
+distribueren van APIs.
+
+### Clone de repository
+Haal het template om mee te werken uit deze repository op: `https://github.com/Ascrofft/OpenWeatherApiTemplate`.
+
+### Restore project instellingen
+Voer je dit uit in de project root:
 ```bash
-dotnet add package Microsoft.Extensions.Configuration
-dotnet add package Microsoft.Extensions.Configuration.Json
-dotnet add package Microsoft.Extensions.Configuration.UserSecrets
-dotnet add package Microsoft.Extensions.DependencyInjection
-dotnet add package Microsoft.Extensions.Http
+cd OpenWeatherApiTemplate
+dotnet restore
 ```
 
 ### appsettings.json toevoegen
@@ -65,6 +66,15 @@ dotnet user-secrets list
 - API key nooit hardcoden
 - Gebruik `dotnet user-secrets` voor `OpenWeather:ApiKey`
 - Gebruik `appsettings.json` voor `OpenWeather:BaseUrl`
+
+###
+Start de applicatie met:
+```bash
+dotnet run
+```
+
+De applicatie zou nu zonder foutmeldingen moeten runnen.
+Je zou "Hello World!" in de console moeten zien verschijnen.
 
 ---
 

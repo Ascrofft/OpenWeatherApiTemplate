@@ -23,7 +23,9 @@ services.AddHttpClient<OpenWeatherClient>(client =>
     client.Timeout = TimeSpan.FromSeconds(10);
 });
 
-// TODO: registreer hier je services
+// Registreer services hier
+services.AddSingleton<OpenWeatherClient>();
+services.AddSingleton<WeatherService>();
 
 using var provider = services.BuildServiceProvider();
 
@@ -32,12 +34,28 @@ using var provider = services.BuildServiceProvider();
 
 while (true)
 {
+    // DEMO (Deze code kan je vervangen met jouw eigen implementatie)
     Console.Clear();
-    Console.WriteLine("Hello World!");
-    // TODO: Implementeer menu (Opdracht 1)
+    Console.Write("Vul een stadsnaam in: ");
+    var city = Console.ReadLine()?.Trim();
 
-    break;
+    if (string.IsNullOrWhiteSpace(city))
+    {
+        Console.WriteLine("Stad mag niet leeg zijn.");
+        Console.WriteLine("Druk op ENTER om door te gaan...");
+        Console.ReadLine();
+        continue;
+    }
+
+    var weatherService = provider.GetRequiredService<WeatherService>();
+
+    // Dit is bewust alleen flow-test: Program -> Service -> Client (geen echte API call)
+    var result = await weatherService.TestFlowAsync(city);
+
+    Console.WriteLine();
+    Console.WriteLine(result);
+    Console.WriteLine();
+    Console.WriteLine("Druk op ENTER om door te gaan...");
+    Console.ReadLine();
+    continue;
 }
-
-// --- Functies & Helpers ---
-// TODO
